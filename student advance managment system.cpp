@@ -1,38 +1,21 @@
-// Student Management system using file handling in c++
-// Sagar Developer
 #include <iostream>
 #include <fstream>
-#include <stdlib.h>
-#include <cstdlib>
 #include <conio.h>
-#include <string>
-#include <string_view>
-#include <regex>
-#include <stdio.h>
 using namespace std;
 class student
 {
-private:
+    private:
     string name, roll_no, course, address, email_id, contact_no;
-
-public:
-    void menu();
-    void insert();
-    void display();
-    void modify();
-    void search();
-    void deleted();
+    public:
+    void menu(),insert(),display(),modify(),search(),deleted();
 };
 void student::menu()
 {
-menustart:
+    menustart:
     int choice;
     char x;
     system("cls");
-
-    cout << "\t\t\t-----------------------------" << endl;
-    cout << "\t\t\t| STUDENT MANAGEMENT SYSTEM |" << endl;
-    cout << "\t\t\t-----------------------------" << endl;
+    cout << "\t\t\t STUDENT MANAGEMENT SYSTEM " << endl;
     cout << "\t\t\t 1. Enter New Record" << endl;
     cout << "\t\t\t 2. Display Record" << endl;
     cout << "\t\t\t 3. Modify Record" << endl;
@@ -40,9 +23,7 @@ menustart:
     cout << "\t\t\t 5. Delete Record" << endl;
     cout << "\t\t\t 6. Exit" << endl;
 
-    cout << "\t\t\t---------------------------" << endl;
     cout << "\t\t\tChoose Option:[1/2/3/4/5/6]" << endl;
-    cout << "\t\t\t---------------------------" << endl;
     cout << "Enter Your Choose: ";
     cin >> choice;
 
@@ -54,7 +35,8 @@ menustart:
             insert();
             cout << "\n\t\t\t Add Another Student Record (Y,N): ";
             cin >> x;
-        } while (x == 'y' || x == 'Y');
+        }
+        while (x == 'y' || x == 'Y');
         break;
     case 2:
         display();
@@ -76,41 +58,39 @@ menustart:
     getch();
     goto menustart;
 }
-void student::insert() // add student details
+void student::insert()
 {
     system("cls");
     fstream file;
-    cout << "\n-----------------------------------------------------------------------------------------------------";
-    cout << "\n------------------------------------- Add Student Details ---------------------------------------------" << endl;
+    cout << "\n Add Student Details " << endl;
     
-    cout << "\t\t\tEnter Name: ";
+    cout << "Enter Name: ";
     cin >> name;
-    cout << "\t\t\tEnter Roll No.: ";
+    cout << "Enter Roll No.: ";
     cin >> roll_no;
-    cout << "\t\t\tEnter Course: ";
+    cout << "Enter Course: ";
     cin >> course;
-    cout << "\t\t\tEnter Email Id: ";
+    cout << "Enter Email Id: ";
     cin >> email_id;
-    cout << "\t\t\tEnter Contact No: ";
+    cout << "Enter Contact No: ";
     cin >> contact_no;
-    cout << "\t\t\tEnter Address: ";
+    cout << "Enter Address: ";
     cin >> address;
     file.open("studentRecord.txt", ios::app | ios::out);
     file << " " << name << " " << roll_no << " " << course << " " << email_id << " " << contact_no << " " << address << "\n";
     file.close();
 }
 
-void student::display() // display students details
+void student::display()
 {
+    system("cls");
     fstream file;
     int total = 1;
-    cout << "\n-------------------------------------------------------------------------------------------------------" << endl;
-    cout << "------------------------------------- Student Record Table --------------------------------------------" << endl;
+    cout << " Student Record Table " << endl;
     file.open("studentRecord.txt", ios::in);
     if (!file)
     {
-        /* code */
-        cout << "\n\t\t\tNo Data Is Present...";
+        cout << "\nNo Data Is Present.";
         file.close();
     }
     else
@@ -118,34 +98,33 @@ void student::display() // display students details
         file >> name >> roll_no >> course >> email_id >> contact_no >> address;
         while (!file.eof())
         {
-            cout << "\n\n\t\t\t Student No.: " << total++ << endl;
-            cout << "\t\t\t Student Name: " << name << endl;
-            cout << "\t\t\t Student Roll No.: " << roll_no << endl;
-            cout << "\t\t\t Student course: " << course << endl;
-            cout << "\t\t\t Student Email Id.: " << email_id << endl;
-            cout << "\t\t\t Student Contact No.: " << contact_no << endl;
-            cout << "\t\t\t Student Address: " << address << endl;
+            cout << "\n\nStudent No.: " << total++ << endl;
+            cout << "Student Name: " << name << endl;
+            cout << "Student Roll No.: " << roll_no << endl;
+            cout << "Student course: " << course << endl;
+            cout << "Student Email Id.: " << email_id << endl;
+            cout << "Student Contact No.: " << contact_no << endl;
+            cout << "Student Address: " << address << endl;
             file >> name >> roll_no >> course >> email_id >> contact_no >> address;
         }
         if (total == 0)
         {
-            cout << "\n\t\t\tNo Data Is Present...";
+            cout << "\nNo Data Is Present.";
         }
     }
     file.close();
 }
-void student::modify() // Modify Students Details
+void student::modify()
 {
     system("cls");
     fstream file, file1;
     string rollno;
     int found = 0;
-    cout << "\n-------------------------------------------------------------------------------------------------------" << endl;
-    cout << "------------------------------------- Student Modify Details ------------------------------------------" << endl;
+    cout << " Student Modify Details " << endl;
     file.open("studentRecord.txt", ios::in);
     if (!file)
     {
-        cout << "\n\t\t\tNo Data is Present..";
+        cout << "\nNo Data is Present.";
     }
     else
     {
@@ -178,7 +157,7 @@ void student::modify() // Modify Students Details
             file >> name >> roll_no >> course >> email_id >> contact_no >> address;
             if (found == 0)
             {
-                cout << "\n\n\t\t\t Student Roll No. Not Found....";
+                cout << "\n\nStudent Roll No. Not Found.";
             }
         }
         file1.close();
@@ -187,7 +166,7 @@ void student::modify() // Modify Students Details
         rename("record.txt", "studentRecord.txt");
     }
 }
-void student::search() // search data of student
+void student::search()
 {
     system("cls");
     fstream file;
@@ -195,15 +174,13 @@ void student::search() // search data of student
     file.open("studentRecord.txt", ios::in);
     if (!file)
     {
-        cout << "\n-------------------------------------------------------------------------------------------------------" << endl;
-        cout << "------------------------------------- Student Search Data ------------------------------------------" << endl;
-        cout << "\n\t\t\t No Data Is Present...";
+        cout << " Student Search Data " << endl;
+        cout << "\nNo Data Is Present.";
     }
     else
     {
         string rollno;
-        cout << "\n-------------------------------------------------------------------------------------------------------" << endl;
-        cout << "------------------------------------- Student Search Data ------------------------------------------" << endl;
+        cout << " Student Search Data " << endl;
         cout << "\n Enter Roll No. of Student Which You Want to Search: ";
         cin >> rollno;
         file >> name >> roll_no >> course >> email_id >> contact_no >> address;
@@ -211,18 +188,18 @@ void student::search() // search data of student
         {
             if (rollno == roll_no)
             {
-                cout << "\n\t\t\t Student Name: " << name << endl;
-                cout << "\t\t\t Student Roll No.: " << roll_no << endl;
-                cout << "\t\t\t Student course: " << course << endl;
-                cout << "\t\t\t Student Email Id.: " << email_id << endl;
-                cout << "\t\t\t Student Address: " << address << endl;
+                cout << "\nStudent Name: " << name << endl;
+                cout << "Student Roll No.: " << roll_no << endl;
+                cout << "Student course: " << course << endl;
+                cout << "Student Email Id.: " << email_id << endl;
+                cout << "Student Address: " << address << endl;
                 found++;
             }
             file >> name >> roll_no >> course >> email_id >> contact_no >> address;
         }
         if (found == 0)
         {
-            cout << "\n\t\t\tStudent Roll No. Not Found...";
+            cout << "\nStudent Roll No. Not Found.";
         }
         file.close();
     }
@@ -233,12 +210,11 @@ void student::deleted()
     fstream file, file1;
     int found = 0;
     string roll;
-    cout << "\n-------------------------------------------------------------------------------------------------------" << endl;
-    cout << "------------------------------------- Delete Student Details ------------------------------------------" << endl;
+    cout << " Delete Student Details " << endl;
     file.open("studentRecord.txt", ios::in);
     if (!file)
     {
-        cout << "\n\t\t\tNo Data is Present..";
+        cout << "\nNo Data is Present.";
         file.close();
     }
     else
@@ -256,13 +232,13 @@ void student::deleted()
             else
             {
                 found++;
-                cout << "\n\t\t\tSuccessfully Delete Data";
+                cout << "\nSuccessfully Delete Data";
             }
             file >> name >> roll_no >> course >> email_id >> contact_no >> address;
         }
         if (found == 0)
         {
-            cout << "\n\t\t\t Student Roll NO. Not Found....";
+            cout << "\nStudent Roll NO. Not Found.";
         }
         file1.close();
         file.close();
